@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_main"
+    android:id="@+id/run"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_vertical"
@@ -14,29 +14,23 @@
         android:paddingLeft="40dp"
         android:paddingRight="40dp">
 
-    <EditText
-        android:id="@+id/iduser"
+    <TextView
+        android:id="@+id/stopwatch_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:textAlignment="center"
-        android:hint="ID" />
-
-    <EditText
-        android:id="@+id/passworduser"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:textAlignment="center"
-        android:inputType="textPassword"
-        android:hint="Password" />
+        android:textSize="60dp"
+        android:paddingBottom="100dp"
+        android:text="00:12:34" /> <!-- Fake stopwhatch -->
 
     <Button
-        android:id="@+id/letsrun_button"
+        android:id="@+id/imdone_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="Let's Run !"/>
+        android:textSize="50dp"
+        android:text="I'm done"/>
 
     </LinearLayout>
 </RelativeLayout>

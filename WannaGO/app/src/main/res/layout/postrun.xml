@@ -34,7 +34,7 @@
             android:layout_gravity="center_horizontal"
             android:textAlignment="center"
             android:textSize="30sp"
-            android:text="Your Stats" />
+            android:text="@string/your_stats" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -47,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:textSize="20sp"
-                android:text="Time" />
+                android:text="@string/time" />
 
             <TextView
                 android:id="@+id/finish_time"
@@ -55,8 +55,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:textAlignment="center"
-                android:textSize="20sp"
-                android:text="00:23:45" /> <!-- @stopwatch -->
+                android:textSize="20sp"/>
 
         </LinearLayout>
 
@@ -71,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:textSize="20sp"
-                android:text="Distance" />
+                android:text="@string/distance" />
 
             <TextView
                 android:id="@+id/finish_distance"
@@ -79,8 +78,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:textAlignment="center"
-                android:textSize="20sp"
-                android:text="23 km" /> <!-- @distance -->
+                android:textSize="20sp" />
 
         </LinearLayout>
 
@@ -95,7 +93,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:textSize="20sp"
-                android:text="Average Speed" />
+                android:text="@string/average_speed" />
 
             <TextView
                 android:id="@+id/finish_average_speed"
@@ -103,8 +101,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:textAlignment="center"
-                android:textSize="20sp"
-                android:text="12 km/h" /> <!-- @avgspeed -->
+                android:textSize="20sp" />
 
         </LinearLayout>
 
@@ -119,7 +116,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:textSize="20sp"
-                android:text="Max Speed" />
+                android:text="@string/max_speed" />
 
             <TextView
                 android:id="@+id/finish_max_speed"
@@ -127,9 +124,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:textAlignment="center"
-                android:textSize="20sp"
-                android:text="18 km/h" /> <!-- @maxspeed -->
-
+                android:textSize="20sp" />
         </LinearLayout>
 
         <TextView
@@ -137,7 +132,7 @@
             android:layout_height="match_parent"
             android:textSize="25sp"
             android:textAlignment="center"
-            android:text="Good job @iduser !"/> <!-- @iduser -->
+            android:text="@string/good_job"/>
 
         <Button
             android:id="@+id/icandobetter_button"
@@ -146,7 +141,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_margin="50dp"
             android:textSize="20sp"
-            android:text="I can do better !"/>
+            android:text="@string/i_can_do_better"/>
 
         <Button
             android:id="@+id/changerunner_button"
@@ -155,7 +150,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_margin="50dp"
             android:textSize="18sp"
-            android:text="Change Runner"/>
+            android:text="@string/change_runner"/>
 
     </LinearLayout>
 </RelativeLayout>

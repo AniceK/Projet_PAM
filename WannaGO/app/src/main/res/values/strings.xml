@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">WannaGO</string>
+    <string name="welcome_message">Hey %s, \nWannaGO for a run ? \n\nReady... \n\nSet...</string>
+    <string name="done">I\'m done</string>
+    <string name="average_speed">Average Speed</string>
+    <string name="distance">Distance</string>
+    <string name="time">Time</string>
+    <string name="your_stats">Your Stats</string>
+    <string name="max_speed">Max Speed</string>
+    <string name="good_job">Good job %s !</string>
+    <string name="i_can_do_better">I can do better !</string>
+    <string name="change_runner">Change Runner</string>
 </resources>

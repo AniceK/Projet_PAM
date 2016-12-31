@@ -14,23 +14,27 @@
         android:paddingLeft="40dp"
         android:paddingRight="40dp">
 
-    <TextView
-        android:id="@+id/stopwatch_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:textAlignment="center"
-        android:textSize="60dp"
-        android:paddingBottom="100dp"
-        android:text="00:12:34" /> <!-- Fake stopwhatch -->
+        <Chronometer
+            android:id="@+id/chronometer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:textAlignment="center"
+            android:textSize="50sp"
+            />
 
-    <Button
-        android:id="@+id/imdone_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:textSize="50dp"
-        android:text="I'm done"/>
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="50sp"/>
+
+        <Button
+            android:id="@+id/imdone_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:textSize="50sp"
+            android:onClick="stopRun"
+            android:text="@string/done"/>
 
     </LinearLayout>
 </RelativeLayout>

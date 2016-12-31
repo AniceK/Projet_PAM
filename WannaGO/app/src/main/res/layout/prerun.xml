@@ -21,10 +21,7 @@
             android:layout_gravity="center_horizontal"
             android:textAlignment="center"
             android:textSize="20dp"
-            android:text="Hey @iduser,
-        \nWannaGO for a run ?
-        \n\nReady...
-        \n\nSet..." />
+            android:text="@string/welcome_message" />
 
         <Button
             android:id="@+id/go_button"
@@ -32,7 +29,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_margin="50dp"
-            android:textSize="30dp"
+            android:textSize="30sp"
+            android:onClick="startRun"
             android:text="Go !"/>
 
     </LinearLayout>

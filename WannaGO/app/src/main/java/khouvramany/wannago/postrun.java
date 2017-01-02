@@ -26,8 +26,10 @@ public class postrun extends AppCompatActivity {
 
     public void changeUser(View view){
         // Call pre-run activity
-        // TO DO : must go back to the existing prerun activity instead of creating a new one
+        // go back to the existing prerun activity instead of creating a new one
+        // close any other activities
         Intent main = new Intent(this, MainActivity.class);
+        main.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(main);
     }
 }

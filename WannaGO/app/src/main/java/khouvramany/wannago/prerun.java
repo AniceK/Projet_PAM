@@ -66,7 +66,7 @@ public class prerun extends AppCompatActivity {
             }
         };
 
-        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 requestPermissions(new String[]{
                         Manifest.permission.ACCESS_FINE_LOCATION,
@@ -75,22 +75,24 @@ public class prerun extends AppCompatActivity {
                 }, 123);
             }
         }
-    }*/
+    }
 
-    /*@Override
+    @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch(requestCode){
             case 123:
                 if(grantResults.length>0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
                     locationManager.requestLocationUpdates("gps", 10000, 10, locationListener);
-        }*/
+        }
     }
 
     // On Click "Go" button
     public void startRun(View view){
 
-        //call run service
+        //start listening location : every 10 seconds or 10 meters
         locationManager.requestLocationUpdates("gps", 10000, 10, locationListener);
+
+        //call run service
         Intent run = new Intent(this, run.class);
         startActivity(run);
     }

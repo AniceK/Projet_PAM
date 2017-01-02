@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 
 public class prerun extends AppCompatActivity {
@@ -22,9 +21,9 @@ public class prerun extends AppCompatActivity {
         String user = intent.getStringExtra("user");
 
         //format welcome message
-        String welcome = String.format(getResources().getString(R.string.welcome_message),user);
+        String prerun_string = String.format(getResources().getString(R.string.prerun_text),user);
 
-        display_message.setText(welcome);
+        display_message.setText(prerun_string);
     }
 
     public void startRun(View view){

@@ -21,7 +21,7 @@
             android:layout_gravity="center_horizontal"
             android:textAlignment="center"
             android:textSize="20dp"
-            android:text="@string/welcome_message" />
+            android:text="@string/prerun_text" />
 
         <Button
             android:id="@+id/go_button"

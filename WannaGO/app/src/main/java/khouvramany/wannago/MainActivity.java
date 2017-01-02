@@ -18,6 +18,12 @@ public class MainActivity extends AppCompatActivity {
         EditText user = (EditText) findViewById(R.id.iduser);
         EditText pwd = (EditText) findViewById(R.id.passworduser);
 
+        // Test ID existant ?
+
+        // Si oui, password correct ?
+
+        // Si non, création user.
+
         Intent prerun = new Intent(this, prerun.class);
         prerun.putExtra("user", user.getText().toString());
         prerun.putExtra("pwd", pwd.getText().toString());

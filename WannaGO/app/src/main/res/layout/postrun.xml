@@ -141,7 +141,8 @@
             android:layout_gravity="center_horizontal"
             android:layout_margin="50dp"
             android:textSize="20sp"
-            android:text="@string/i_can_do_better"/>
+            android:text="@string/i_can_do_better"
+            android:onClick="runAgain"/>
 
         <Button
             android:id="@+id/changerunner_button"
@@ -150,7 +151,8 @@
             android:layout_gravity="center_horizontal"
             android:layout_margin="50dp"
             android:textSize="18sp"
-            android:text="@string/change_runner"/>
+            android:text="@string/change_runner"
+            android:onClick="changeUser"/>
 
     </LinearLayout>
 </RelativeLayout>

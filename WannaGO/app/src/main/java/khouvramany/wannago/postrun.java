@@ -1,7 +1,9 @@
 package khouvramany.wannago;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 
 public class postrun extends AppCompatActivity {
 
@@ -11,5 +13,15 @@ public class postrun extends AppCompatActivity {
         setContentView(R.layout.postrun);
     }
 
+    public void runAgain(View view){
+        // Call pre-run activity
+        Intent prerun = new Intent(this, prerun.class);
+        startActivity(prerun);
+    }
 
+    public void changeUser(View view){
+        // Call pre-run activity
+        Intent main = new Intent(this, MainActivity.class);
+        startActivity(main);
+    }
 }

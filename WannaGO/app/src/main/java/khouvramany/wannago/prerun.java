@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 public class prerun extends AppCompatActivity {
 
+    public String user;
     public LocationManager locationManager;
     public LocationListener locationListener;
 
@@ -26,19 +27,12 @@ public class prerun extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.prerun);
 
-        TextView display_message = (TextView) findViewById(R.id.prerun_text);
-
-        //get extras
-        Intent intent = getIntent();
-        String user = intent.getStringExtra("user");
-
         //format welcome message
-        String prerun_string = String.format(getResources().getString(R.string.prerun_text), user);
-
+        TextView display_message = (TextView) findViewById(R.id.prerun_text);
+        String prerun_string = String.format(getResources().getString(R.string.prerun_text), getIntent().getStringExtra("user"));
         display_message.setText(prerun_string);
 
         // Initiate Location
-
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         locationListener = new LocationListener() {
             @Override
@@ -90,10 +84,11 @@ public class prerun extends AppCompatActivity {
     public void startRun(View view){
 
         //start listening location : every 10 seconds or 10 meters
-        locationManager.requestLocationUpdates("gps", 10000, 10, locationListener);
+        locationManager.requestLocationUpdates("gps", 1000, 10, locationListener);
 
         //call run service
         Intent run = new Intent(this, run.class);
+        run.putExtra("user", getIntent().getStringExtra("user"));
         startActivity(run);
     }
 

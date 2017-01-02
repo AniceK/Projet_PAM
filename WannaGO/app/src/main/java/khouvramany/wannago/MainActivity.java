@@ -28,15 +28,12 @@ public class MainActivity extends AppCompatActivity {
 
         Intent prerun = new Intent(this, prerun.class);
         prerun.putExtra("user", user.getText().toString());
-        prerun.putExtra("pwd", pwd.getText().toString());
         startActivity(prerun);
     }
 
     public boolean checkCredentials(String user, String password){
         boolean isCredentialsValid = false;
-
         //TO DO : do some checking stuff
-
 
         return isCredentialsValid;
     }

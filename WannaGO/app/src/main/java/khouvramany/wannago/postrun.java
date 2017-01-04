@@ -3,9 +3,7 @@ package khouvramany.wannago;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 
 public class postrun extends AppCompatActivity {
@@ -14,6 +12,14 @@ public class postrun extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.postrun);
+
+        TextView display_chrono = (TextView) findViewById(R.id.finish_time);
+        Float postrun_chrono = getIntent().getFloatExtra("chrono", 0);
+        display_chrono.setText(String.valueOf(Math.round(postrun_chrono)));
+
+        TextView display_distance = (TextView) findViewById(R.id.finish_distance);
+        Float postrun_distance = getIntent().getFloatExtra("distance", 0);
+        display_distance.setText(String.valueOf(Math.round(postrun_distance)));
 
         TextView display_message = (TextView) findViewById(R.id.greetings);
         String postrun_string = String.format(getResources().getString(R.string.good_job), getIntent().getStringExtra("user"));

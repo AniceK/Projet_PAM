@@ -1,6 +1,7 @@
 package khouvramany.wannago;
 
 import android.content.Intent;
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,8 +15,9 @@ public class postrun extends AppCompatActivity {
         setContentView(R.layout.postrun);
 
         TextView display_chrono = (TextView) findViewById(R.id.finish_time);
-        Float postrun_chrono = getIntent().getFloatExtra("chrono", 0);
-        display_chrono.setText(String.valueOf(Math.round(postrun_chrono)));
+        Long postrun_chrono = getIntent().getLongExtra("chrono", 0);
+        Long duration = ( SystemClock.elapsedRealtime() - postrun_chrono ) /1000;
+        display_chrono.setText(String.valueOf(duration));
 
         TextView display_distance = (TextView) findViewById(R.id.finish_distance);
         Float postrun_distance = getIntent().getFloatExtra("distance", 0);

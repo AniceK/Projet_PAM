@@ -14,17 +14,17 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".LoginActiviy">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".prerun" />
+        <activity android:name=".PreRunActivity" />
 
-        <activity android:name=".run" />
-        <activity android:name=".postrun"></activity>
+        <activity android:name=".RunActivity" />
+        <activity android:name=".PostrunActivity"></activity>
     </application>
 
 </manifest>

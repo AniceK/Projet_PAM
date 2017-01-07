@@ -4,27 +4,33 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.security.PublicKey;
+
 /**
  * Created by gautiercouvrat on 02/01/2017.
  */
 
 public class MyDatabse extends SQLiteOpenHelper {
+    public static final String USER_TABLE = "Users";
+    public static final String RUN_TABLE = "Run";
+    public static final String RUN_POSITIONS_TABLE = "Run_positions";
 
-    private final static String CRE_TAB_USER ="create table Users("+
+
+    private final static String CRE_TAB_USER ="create table "+USER_TABLE+" ("+
             "user_id INTEGER PRIMARY KEY AUTOINCREMENT, "+
             "user_name text not null,"+
             "user_pwd text not null"+
             ");"
             ;
 
-    private final static String CRE_TAB_RUN ="create table Run("+
+    private final static String CRE_TAB_RUN ="create table "+RUN_TABLE+" ("+
             "id INTEGER PRIMARY KEY AUTOINCREMENT, "+
             "isbn text not null,"+
             "titre text not null"+
             ");"
             ;
 
-    private final static String CRE_TAB_RUN_POS ="create table Run_positions("+
+    private final static String CRE_TAB_RUN_POS ="create table "+RUN_POSITIONS_TABLE+" ("+
             "pos_id INTEGER PRIMARY KEY AUTOINCREMENT, "+
             "pos_coord text not null,"+
             "pos_date text not null,"+

@@ -17,7 +17,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Chronometer;
 
-public class run extends AppCompatActivity {
+public class RunActivity extends AppCompatActivity {
 
     Chronometer chrono;
 
@@ -136,8 +136,8 @@ public class run extends AppCompatActivity {
 
     public void stopRun(View view){
         chrono.stop();
-        // Call post run activity
-        Intent postrun = new Intent(this, postrun.class);
+        // Call post RunActivity activity
+        Intent postrun = new Intent(this, PostrunActivity.class);
         postrun.putExtra("user",getIntent().getStringExtra("user"));
         postrun.putExtra("distance", fullDistance);
         postrun.putExtra("chrono", chrono.getBase());

@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-public class postrun extends AppCompatActivity {
+public class PostrunActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,10 +33,10 @@ public class postrun extends AppCompatActivity {
     }
 
     public void changeUser(View view){
-        // Call pre-run activity
-        // go back to the existing prerun activity instead of creating a new one
+        // Call pre-RunActivity activity
+        // go back to the existing PreRunActivity activity instead of creating a new one
         // close any other activities
-        Intent main = new Intent(this, MainActivity.class);
+        Intent main = new Intent(this, LoginActiviy.class);
         main.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(main);
     }

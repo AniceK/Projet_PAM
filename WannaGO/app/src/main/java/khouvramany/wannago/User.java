@@ -2,7 +2,6 @@ package khouvramany.wannago;
 
 import android.util.Log;
 
-import static android.R.attr.name;
 
 /**
  * Created by gautiercouvrat on 02/01/2017.
@@ -14,27 +13,22 @@ public class User {
     private String _name;
     private String _password;
 
-    public void set_id(int _id) {
-        this._id = _id;
+    public User() {
+        this.setName(null);
+        this.setPassword(null);
     }
-
-    public int get_id() {
-        return _id;
-    }
-
-    public User() {}
 
     public User(String name, String pwd) {
-        _name = name;
-        _password = pwd;
-
-        Log.d(TAG,"User created :"+ _name+" ; "+ _password);
+        //this.setId();
+        this.setName(name);
+        this.setPassword(pwd);
+        Log.d(TAG,"User --- User created :" +this.toString());
     }
 
     public User(int id, String name, String pwd){
-        _name = name;
-        _password = pwd;
-        _id = id;
+        this.setId(id);
+        this.setName(name);
+        this.setPassword(pwd);
     }
 
     public String getPassword() {
@@ -51,5 +45,18 @@ public class User {
 
     public void setName(String name) {
         this._name = name;
+    }
+
+    public void setId(int _id) {
+        this._id = _id;
+    }
+
+    public int getId() {
+        return _id;
+    }
+
+    @Override
+    public String toString(){
+        return getId() +" ; "+ getName() +" ; "+getPassword();
     }
 }

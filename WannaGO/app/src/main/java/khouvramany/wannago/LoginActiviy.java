@@ -67,7 +67,7 @@ public class LoginActiviy extends AppCompatActivity {
 
         Log.d(TAG,"Target pwd :" +target.getPassword());
 
-        if (password == target.getPassword()) isCredentialsValid = true;
+        if (password.equals(target.getPassword())) isCredentialsValid = true;
         userDB.close();
 
         return isCredentialsValid;

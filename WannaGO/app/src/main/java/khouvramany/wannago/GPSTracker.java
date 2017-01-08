@@ -36,7 +36,7 @@ public class GPSTracker extends Service {
 
     @Override
     public void onCreate() {
-        Log.e(TAG, "onCreate");
+        Log.d(TAG, "onCreate");
         initializeLocationManager();
 
         try {
@@ -44,9 +44,9 @@ public class GPSTracker extends Service {
                     LocationManager.NETWORK_PROVIDER, LOCATION_INTERVAL, LOCATION_DISTANCE,
                     mLocationListeners[1]);
         } catch (SecurityException ex) {
-            Log.i(TAG, "fail to request location update, ignore", ex);
+            Log.e(TAG, "fail to request location update, ignore", ex);
         } catch (IllegalArgumentException ex) {
-            Log.d(TAG, "network provider does not exist, " + ex.getMessage());
+            Log.e(TAG, "network provider does not exist, " + ex.getMessage());
         }
 
         try {
@@ -54,9 +54,9 @@ public class GPSTracker extends Service {
                     LocationManager.GPS_PROVIDER, LOCATION_INTERVAL, LOCATION_DISTANCE,
                     mLocationListeners[0]);
         } catch (SecurityException ex) {
-            Log.i(TAG, "fail to request location update, ignore", ex);
+            Log.e(TAG, "fail to request location update, ignore", ex);
         } catch (IllegalArgumentException ex) {
-            Log.d(TAG, "gps provider does not exist " + ex.getMessage());
+            Log.e(TAG, "gps provider does not exist " + ex.getMessage());
         }
 
     }
@@ -70,9 +70,9 @@ public class GPSTracker extends Service {
                 try {
                     locationManager.removeUpdates(mLocationListener);
                 } catch (SecurityException ex) {
-                    Log.i(TAG, "fail to request location update, ignore", ex);
+                    Log.d(TAG, "fail to request location update, ignore", ex);
                 } catch (Exception ex) {
-                    Log.i(TAG, "fail to remove location listners, ignore", ex);
+                    Log.d(TAG, "fail to remove location listners, ignore", ex);
                 }
             }
         }
@@ -102,30 +102,30 @@ public class GPSTracker extends Service {
     private class LocationListener implements android.location.LocationListener{
         Location mLastLocation;
         LocationListener(String provider) {
-            Log.e(TAG, "LocationListener " + provider);
+            Log.d(TAG, "LocationListener " + provider);
             mLastLocation = new Location(provider);
         }
         @Override
         public void onLocationChanged(Location location) {
-            Log.e(TAG, "onLocationChanged: " + location);
+            Log.d(TAG, "onLocationChanged: " + location);
             mLastLocation.set(location);
         }
 
         @Override
         public void onStatusChanged(String provider, int i, Bundle bundle) {
-            Log.e(TAG, "onStatusChanged: " + provider);
+            Log.d(TAG, "onStatusChanged: " + provider);
         }
 
         @Override
         public void onProviderDisabled(String provider) {
-            Log.e(TAG, "onProviderDisabled: " + provider);
-            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-            startActivity(intent);
+            Log.d(TAG, "onProviderDisabled: " + provider);
+            /*Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+            startActivity(intent);*/
         }
 
         @Override
         public void onProviderEnabled(String provider) {
-            Log.e(TAG, "onProviderEnabled: " + provider);
+            Log.d(TAG, "onProviderEnabled: " + provider);
         }
     }
 
@@ -135,7 +135,7 @@ public class GPSTracker extends Service {
     };
 
     private void initializeLocationManager() {
-        Log.e(TAG, "initializeLocationManager");
+        Log.d(TAG, "initializeLocationManager");
         if (locationManager == null) {
             locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
         }

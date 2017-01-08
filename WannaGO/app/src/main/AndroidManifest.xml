@@ -21,7 +21,7 @@
         </activity>
         <activity android:name=".PreRunActivity" />
         <activity android:name=".RunActivity" />
-        <activity android:name=".PostrunActivity" />
+        <activity android:name=".PostRunActivity" />
 
         <service
             android:name=".GPSTracker"

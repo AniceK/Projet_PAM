@@ -27,6 +27,7 @@ public class PreRunActivity extends AppCompatActivity {
         //call RunActivity service
         Intent run = new Intent(this, RunActivity.class);
         run.putExtra("user", getIntent().getStringExtra("user"));
+        run.putExtra("caller", this.getClass().getName());
         startActivity(run);
     }
 

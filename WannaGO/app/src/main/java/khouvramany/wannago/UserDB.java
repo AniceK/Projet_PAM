@@ -26,11 +26,6 @@ public class UserDB extends WannaGoDB {
         db = super.getDb();
     }
 
-    @Override
-    public void close() {
-        super.close();
-    }
-
     public void insertUser(User user){
         Log.d(TAG,"insertUser -- START");
         Log.d(TAG,"insertUser -- param user :"+ user.toString());

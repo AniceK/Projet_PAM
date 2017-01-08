@@ -13,6 +13,11 @@ import android.view.View;
 import android.widget.Chronometer;
 
 public class RunActivity extends AppCompatActivity {
+    //================================
+    //       Variables for Activity
+    //================================
+    Chronometer chrono;
+    Run run;
 
     //================================
     //       Variables for service
@@ -40,13 +45,6 @@ public class RunActivity extends AppCompatActivity {
     };
 
     //================================
-    //       Variables for Activity
-    //================================
-
-    Chronometer chrono;
-
-
-    //================================
     // Method onCreate : create instances
     //================================
 
@@ -55,6 +53,7 @@ public class RunActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_run);
 
+        run = new Run();
         chrono = (Chronometer) findViewById(R.id.chronometer);
 
         String name = getIntent().getStringExtra("user");

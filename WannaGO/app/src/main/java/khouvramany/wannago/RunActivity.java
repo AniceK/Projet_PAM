@@ -33,7 +33,7 @@ public class RunActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.run);
+        setContentView(R.layout.activity_run);
 
         chrono = (Chronometer) findViewById(R.id.chronometer);
 

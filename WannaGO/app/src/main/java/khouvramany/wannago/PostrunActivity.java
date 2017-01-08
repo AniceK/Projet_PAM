@@ -12,7 +12,7 @@ public class PostrunActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.postrun);
+        setContentView(R.layout.activity_postrun);
 
         TextView display_chrono = (TextView) findViewById(R.id.finish_time);
         Long postrun_chrono = getIntent().getLongExtra("chrono", 0);

@@ -13,7 +13,7 @@ public class PreRunActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.prerun);
+        setContentView(R.layout.activity_prerun);
 
         //format welcome message
         TextView display_message = (TextView) findViewById(R.id.prerun_text);

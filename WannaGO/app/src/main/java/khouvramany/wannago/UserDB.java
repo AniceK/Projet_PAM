@@ -31,7 +31,7 @@ public class UserDB extends WannaGoDB {
         super.close();
     }
 
-    public long insertUser(User user){
+    public void insertUser(User user){
         Log.d(TAG,"insertUser -- START");
         Log.d(TAG,"insertUser -- param user :"+ user.toString());
 
@@ -40,16 +40,18 @@ public class UserDB extends WannaGoDB {
         values.put("user_name", user.getName());
         values.put("user_pwd",user.getPassword());
 
-        return db.insert(MyDatabse.USER_TABLE,null,values);
+        db.insert(MyDatabse.USER_TABLE,null,values);
+        close();
     }
 
     public User getUserbyName (String name){
         Log.d(TAG,"getUserbyName -- START");
         Log.d(TAG,"getUserbyName -- param name = "+name);
 
+        open();
         User result = new User();
-
         String[] whereArgs = new String[]{ name };
+
         try {
             Cursor cursor = db.rawQuery("SELECT user_id, user_name, user_pwd FROM Users WHERE user_name like ?", whereArgs);
             result = cursorToUser(cursor);
@@ -59,6 +61,7 @@ public class UserDB extends WannaGoDB {
             e.printStackTrace();
         }
 
+        close();
         Log.d(TAG,"getUserbyName -- END");
         return result;
     }

@@ -16,7 +16,7 @@ public class LoginActiviy extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login);
         userDB = new UserDB(this);
     }
 
@@ -30,7 +30,6 @@ public class LoginActiviy extends AppCompatActivity {
             Toast.makeText(this, "Please enter a password", Toast.LENGTH_LONG).show();
         }else {
 
-            userDB.open();
             User newbee = new User(user.getText().toString(), pwd.getText().toString());
             User target = userDB.getUserbyName(newbee.getName());
 
@@ -43,17 +42,15 @@ public class LoginActiviy extends AppCompatActivity {
 
 
                 Intent prerun = new Intent(this, PreRunActivity.class);
-                prerun.putExtra("user", user.getText().toString());
+                prerun.putExtra("user", newbee.getName());
                 startActivity(prerun);
             } else {
                 Log.v(TAG, "user :" + target.toString() + " found in database");
                 // Refuse access if password is not valid
                 if (!target.getPassword().equals(newbee.getPassword())) {
                     Log.v(TAG, "user :" + user.getText().toString() + " --  invalid password");
-                    Log.v(TAG, "user :" + user.getText().toString() + " --  TARGET           NEWBE");
-                    Log.v(TAG, "user :" + user.getText().toString() + " --  " + target.getPassword() + "     !=      " + newbee.getPassword());
-                    // Display the error on screen
 
+                    // Display the error on screen
                     Toast.makeText(this, "Invalid password", Toast.LENGTH_LONG).show();
 
                 } else {
@@ -62,22 +59,6 @@ public class LoginActiviy extends AppCompatActivity {
                     startActivity(prerun);
                 }
             }
-            userDB.close();
         }
     }
-
-    public boolean checkCredentials(String name, String password) {
-        boolean isCredentialsValid = false;
-
-        userDB.open();
-        User target = userDB.getUserbyName(name);
-
-        Log.d(TAG,"Target pwd :" +target.getPassword());
-
-        if (password.equals(target.getPassword())) isCredentialsValid = true;
-        userDB.close();
-
-        return isCredentialsValid;
-    }
-
 }

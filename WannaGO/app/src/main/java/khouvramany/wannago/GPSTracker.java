@@ -8,7 +8,9 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Binder;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Message;
 import android.provider.Settings;
 import android.util.Log;
 
@@ -29,6 +31,7 @@ public class GPSTracker extends Service {
     private static final int LOCATION_INTERVAL = 1000;
     private static final String TAG = "GPSTracker";
     private static final float LOCATION_DISTANCE = 10;
+
 
     //================================
     //       Methods for service
@@ -109,6 +112,11 @@ public class GPSTracker extends Service {
         public void onLocationChanged(Location location) {
             Log.d(TAG, "onLocationChanged: " + location);
             mLastLocation.set(location);
+
+            // Send location to Activity
+            Message msg = myHandler.obtain();
+            msg.obj = location;
+            myHandler.sendMessage(msg);
         }
 
         @Override
@@ -141,81 +149,3 @@ public class GPSTracker extends Service {
         }
     }
 }
-
-
-/*============== OLD VERSION =============
-// Initiate Location
-        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-        locationListener = new LocationListener() {
-            @Override
-            public void onLocationChanged(Location location) {
-                float distance;
-
-                Log.v("location", "\n" + location.getLatitude() + " " + location.getLongitude() + " " + location.getAltitude());
-
-                newLocation.setLatitude(location.getLatitude());
-                newLocation.setLongitude(location.getLongitude());
-                newLocation.setAltitude(location.getAltitude());
-
-                // Insert location.getLatitude(), location.getLongitude() and (optionally) location.getAltitude() in Database
-
-                // locations initialisation
-                if(update == 0){
-                    Log.v("location", "First location");
-
-                    oldLocation.setLatitude(location.getLatitude());
-                    oldLocation.setLongitude(location.getLongitude());
-                    oldLocation.setAltitude(location.getAltitude());
-
-                    // No movement case
-                }else if(oldLocation.getLatitude() == newLocation.getLatitude() &&
-                        oldLocation.getLongitude() == newLocation.getLongitude()){
-                    Log.v("location", "No movement");
-
-                    // Movement case
-                }else{
-                    Log.v("location", "Old : Lat = " + oldLocation.getLatitude() + ", Long = " + oldLocation.getLongitude());
-                    Log.v("location", "New : Lat = " + newLocation.getLatitude() + ", Long = " + newLocation.getLongitude());
-
-                    // Distance since last location
-                    distance = oldLocation.distanceTo(newLocation);
-
-                    // Set the new location as default
-                    oldLocation.setLatitude(newLocation.getLatitude());
-                    oldLocation.setLongitude(newLocation.getLongitude());
-                    oldLocation.setAltitude(newLocation.getAltitude());
-
-                    Log.v("location", "Distance = " + fullDistance + " + " + distance + " = " + (fullDistance + distance) + " m");
-
-                    // Total distance
-                    fullDistance += distance;
-                }
-
-                update++;
-
-            }
-        };
-
-        //start listening location : every 5 seconds or 10 meters
-        locationManager.requestLocationUpdates("gps", 5000, 10, locationListener);
-    }
-
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                requestPermissions(new String[]{
-                        Manifest.permission.ACCESS_FINE_LOCATION,
-                        Manifest.permission.ACCESS_COARSE_LOCATION,
-                        Manifest.permission.INTERNET
-                }, 123);
-            }
-        }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch(requestCode){
-            case 123:
-                if(grantResults.length>0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
-                    locationManager.requestLocationUpdates("gps", 5000, 10, locationListener);
-        }
-    }
- */

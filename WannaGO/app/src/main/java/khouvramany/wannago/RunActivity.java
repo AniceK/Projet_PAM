@@ -4,7 +4,10 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.location.Location;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Message;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -41,6 +44,16 @@ public class RunActivity extends AppCompatActivity {
 
             // Unbound from GPSTracker
             mBound = false;
+        }
+    };
+
+    private Handler myHandler = new Handler() {
+        public void handleMessage(Message msg) {
+            Location location = (Location) msg.obj;
+
+            Log.d("RunActivity", "new location received: " + location);
+            // insert location in Run
+            // run.addLocation(location);
         }
     };
 
@@ -118,3 +131,4 @@ public class RunActivity extends AppCompatActivity {
         startActivity(postrun);
     }
 }
+

@@ -12,6 +12,7 @@ import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
+import android.provider.Settings;
 import android.util.Log;
 
 public class GPSTracker extends Service {
@@ -136,8 +137,8 @@ public class GPSTracker extends Service {
         @Override
         public void onProviderDisabled(String provider) {
             Log.d(TAG, "onProviderDisabled: " + provider);
-            /*Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-            startActivity(intent);*/
+            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+            startActivity(intent);
         }
 
         @Override

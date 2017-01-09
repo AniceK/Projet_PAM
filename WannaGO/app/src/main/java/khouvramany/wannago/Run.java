@@ -85,6 +85,7 @@ public class Run {
     }
 
     public void addLocation(Location location){
+        Log.d(TAG, "addLocation: " + location);
         locations.addElement(location);
     }
 

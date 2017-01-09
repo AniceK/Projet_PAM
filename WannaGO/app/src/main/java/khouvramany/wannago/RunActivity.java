@@ -25,7 +25,7 @@ public class RunActivity extends AppCompatActivity {
     //       Variables for Activity
     //================================
     Chronometer chrono;
-    static Run run;
+    Run run;
 
     //================================
     //       Variables for service
@@ -113,7 +113,8 @@ public class RunActivity extends AppCompatActivity {
     //       Method for handler
     //================================
 
-    static class myHandler extends Handler {
+    class myHandler extends Handler {
+
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);

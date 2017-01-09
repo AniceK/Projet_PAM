@@ -41,7 +41,7 @@ public class MyDatabse extends SQLiteOpenHelper {
             RUN_DURATION+" integer not null,"+
             RUN_DISTANCE+" integer not null,"+
             RUN_ELEVATION+" integer not null,"+
-            USER_ID+" integer not null"+
+            USER_ID+" integer not null,"+
             "FOREIGN KEY("+USER_ID+") REFERENCES "+USER_TABLE+"("+USER_ID+")"+
             ");"
             ;

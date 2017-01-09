@@ -6,12 +6,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.location.LocationManager;
-import android.os.Binder;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
-import android.provider.Settings;
+import android.os.Messenger;
+import android.os.RemoteException;
 import android.util.Log;
 
 public class GPSTracker extends Service {
@@ -20,7 +20,7 @@ public class GPSTracker extends Service {
     //       Variables for service
     //================================
 
-    private final IBinder mBinder = new LocalBinder();
+    //private final IBinder mBinder = new LocalBinder();
 
     //================================
     //       Variables for location
@@ -34,6 +34,25 @@ public class GPSTracker extends Service {
 
 
     //================================
+    //       Method for handler
+    //================================
+
+    class myHandler extends Handler {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+
+            messageActivity = msg.replyTo;
+            Log.d(TAG, "Message handled: " + msg);
+        }
+    }
+
+    // Messenger received in order to respond
+    Messenger messageActivity;
+    // Messenger to bind
+    final Messenger mMessenger = new Messenger(new myHandler());
+
+    //================================
     //       Methods for service
     //================================
 
@@ -44,18 +63,8 @@ public class GPSTracker extends Service {
 
         try {
             locationManager.requestLocationUpdates(
-                    LocationManager.NETWORK_PROVIDER, LOCATION_INTERVAL, LOCATION_DISTANCE,
-                    mLocationListeners[1]);
-        } catch (SecurityException ex) {
-            Log.e(TAG, "fail to request location update, ignore", ex);
-        } catch (IllegalArgumentException ex) {
-            Log.e(TAG, "network provider does not exist, " + ex.getMessage());
-        }
-
-        try {
-            locationManager.requestLocationUpdates(
                     LocationManager.GPS_PROVIDER, LOCATION_INTERVAL, LOCATION_DISTANCE,
-                    mLocationListeners[0]);
+                    new LocationListener(LocationManager.GPS_PROVIDER));
         } catch (SecurityException ex) {
             Log.e(TAG, "fail to request location update, ignore", ex);
         } catch (IllegalArgumentException ex) {
@@ -81,16 +90,9 @@ public class GPSTracker extends Service {
         }
     }
 
-    // Allows activity to call public methods of this service
-    public class LocalBinder extends Binder {
-        GPSTracker getService(){
-            return GPSTracker.this;
-        }
-    }
-
     @Override
     public IBinder onBind(Intent arg0) {
-        return mBinder;
+        return mMessenger.getBinder();
     }
 
     @Override
@@ -113,10 +115,17 @@ public class GPSTracker extends Service {
             Log.d(TAG, "onLocationChanged: " + location);
             mLastLocation.set(location);
 
-            // Send location to Activity
-            Message msg = myHandler.obtain();
+            // Set location in msg
+            Message msg = new Message();
             msg.obj = location;
-            myHandler.sendMessage(msg);
+
+            // Send msg to activity
+            try {
+                messageActivity.send(msg);
+            }catch (RemoteException e){
+                e.printStackTrace();
+            }
+
         }
 
         @Override

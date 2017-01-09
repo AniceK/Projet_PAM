@@ -39,9 +39,11 @@ public class RunDB extends WannaGoDB {
         values.put("elevation",run.getElevation());
         values.put("user_id",run.getRunner());
 
+
         db.insert(RUN_TABLE,null,values);
         close();
     }
+
 
     public void insertRunLocation(Run run, Location loc){
         Log.d(TAG,"insertUser -- START");

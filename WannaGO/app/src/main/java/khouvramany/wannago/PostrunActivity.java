@@ -26,6 +26,8 @@ public class PostRunActivity extends AppCompatActivity {
         TextView display_message = (TextView) findViewById(R.id.greetings);
         String postrun_string = String.format(getResources().getString(R.string.good_job), getIntent().getStringExtra("user"));
         display_message.setText(postrun_string);
+
+
     }
 
     public void runAgain(View view){

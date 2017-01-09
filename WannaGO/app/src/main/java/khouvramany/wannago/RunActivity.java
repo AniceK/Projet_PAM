@@ -8,6 +8,8 @@ import android.location.Location;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
+import android.os.Messenger;
+import android.os.RemoteException;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,46 +18,23 @@ import android.view.View;
 import android.widget.Chronometer;
 
 public class RunActivity extends AppCompatActivity {
+
+    public static final String TAG = "RunActivity";
+
     //================================
     //       Variables for Activity
     //================================
     Chronometer chrono;
-    Run run;
+    static Run run;
 
     //================================
     //       Variables for service
     //================================
 
-    GPSTracker mGPSTracker;
+    // link with service status
     boolean mBound = false;
-
-    private ServiceConnection mConnection = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-
-            // Bound to GPSTracker and get LocalService instance
-            GPSTracker.LocalBinder binder = (GPSTracker.LocalBinder) service;
-            mGPSTracker = binder.getService();
-            mBound = true;
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-
-            // Unbound from GPSTracker
-            mBound = false;
-        }
-    };
-
-    private Handler myHandler = new Handler() {
-        public void handleMessage(Message msg) {
-            Location location = (Location) msg.obj;
-
-            Log.d("RunActivity", "new location received: " + location);
-            // insert location in Run
-            // run.addLocation(location);
-        }
-    };
+    // Contains service address
+    Messenger mService = null;
 
     //================================
     // Method onCreate : create instances
@@ -66,11 +45,13 @@ public class RunActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_run);
 
-        run = new Run();
         chrono = (Chronometer) findViewById(R.id.chronometer);
 
         String name = getIntent().getStringExtra("user");
-        Log.d("tag", name);
+        Log.d(TAG, name);
+
+        // à compléter avec paramètres complets
+        run = new Run();
 
         //Start chronometer
         chrono.start();
@@ -84,10 +65,70 @@ public class RunActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
+        Log.d(TAG, "onStart");
+
         // Bind to GPSTracker
         Intent intent = new Intent(this, GPSTracker.class);
         bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
     }
+
+    //================================
+    // Method ServiceConnection : action after connection
+    //================================
+
+    private ServiceConnection mConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+
+            Log.d(TAG, "onServiceConnected: " + service);
+
+            mBound = true;
+            mService = new Messenger(service);
+
+            Message msg = new Message();
+
+            // Msg contain activity address so the service can respond
+            msg.replyTo = mMessenger;
+
+            // Send msg to service
+            try {
+                mService.send(msg);
+            }catch (RemoteException e){
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+
+            // Unbound from GPSTracker
+            mBound = false;
+            mService = null;
+
+            Log.d(TAG, "onServiceDisconnected");
+        }
+    };
+
+    //================================
+    //       Method for handler
+    //================================
+
+    static class myHandler extends Handler {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+
+            Log.d(TAG, "Message handled: " + msg);
+
+            Location location = (Location) msg.obj;
+
+            Log.d(TAG, "new location received: " + location);
+            // insert location in Run
+            run.addLocation(location);
+        }
+    }
+
+    final Messenger mMessenger = new Messenger(new myHandler());
 
     //================================
     // Method onStop : Unbind

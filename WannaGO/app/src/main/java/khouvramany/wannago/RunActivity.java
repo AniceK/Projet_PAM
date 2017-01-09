@@ -52,6 +52,7 @@ public class RunActivity extends AppCompatActivity {
 
         // à compléter avec paramètres complets
         run = new Run();
+        run.setRunner(name);
 
         //Start chronometer
         chrono.start();
@@ -170,6 +171,7 @@ public class RunActivity extends AppCompatActivity {
         Intent postrun = new Intent(this, PostRunActivity.class);
         postrun.putExtra("user",getIntent().getStringExtra("user"));
         postrun.putExtra("chrono", chrono.getBase());
+        postrun.putExtra("run", run.getClass());
         startActivity(postrun);
     }
 }

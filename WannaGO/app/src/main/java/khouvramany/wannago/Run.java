@@ -1,7 +1,6 @@
 package khouvramany.wannago;
 
 import android.location.Location;
-import android.util.FloatProperty;
 import android.util.Log;
 
 import java.util.Date;
@@ -15,7 +14,7 @@ import java.util.Vector;
 public class Run {
     private static final String TAG = "Run";
     private int runId ;
-    private Date startDate;
+    private long startDate;
     private double duration;
     private double distance;
     private double elevation;
@@ -23,17 +22,17 @@ public class Run {
     private Vector<Location> locations;
 
     public Run() {
-        this.setStartDate(new Date(System.currentTimeMillis()));
-        this.setDistance((long) 0);
-        this.setDuration((long) 0);
+        this.setStartDate(0);
+        this.setDistance(0);
+        this.setDuration(0);
         this.setRunner(null);
-        this.setElevation((long) 0);
+        this.setElevation(0);
         locations = new Vector<>();
 
         Log.v(TAG,"new Run : "+ this.toString());
     }
 
-    public Run(Vector<Location> locations, double duration, double distance, double elevation, String runner, Date startDate, int runId) {
+    public Run(Vector<Location> locations, double duration, double distance, double elevation, String runner, long startDate, int runId) {
         this.locations = locations;
         this.duration = duration;
         this.distance = distance;
@@ -89,11 +88,11 @@ public class Run {
         this.distance = distance;
     }
 
-    public Date getStartDate() {
+    public long getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(long startDate) {
         this.startDate = startDate;
     }
 
@@ -120,6 +119,8 @@ public class Run {
 
     public void addLocation(Location location){
         Log.d(TAG, "addLocation: " + location);
+
+        if (locations.size() == 0 ) setStartDate( location.getTime());
         locations.addElement(location);
     }
 

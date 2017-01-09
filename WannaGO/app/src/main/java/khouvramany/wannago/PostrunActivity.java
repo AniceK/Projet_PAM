@@ -7,7 +7,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-public class PostRunActivity extends AppCompatActivity {
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
+public class PostRunActivity extends AppCompatActivity implements OnMapReadyCallback {
+
+    MapFragment mapFragment ;
+    Run run ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +36,10 @@ public class PostRunActivity extends AppCompatActivity {
         String postrun_string = String.format(getResources().getString(R.string.good_job), getIntent().getStringExtra("user"));
         display_message.setText(postrun_string);
 
+        mapFragment = (MapFragment) getFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+
 
     }
 
@@ -41,5 +54,12 @@ public class PostRunActivity extends AppCompatActivity {
         Intent main = new Intent(this, LoginActiviy.class);
         main.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(main);
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        googleMap.addMarker(new MarkerOptions()
+                .position(new LatLng(0, 0))
+                .title("Marker"));
     }
 }

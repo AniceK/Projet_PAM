@@ -4,9 +4,14 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.location.Location;
+import android.location.LocationManager;
+import android.os.Bundle;
 import android.util.Log;
 
+import java.util.Iterator;
 import java.util.Vector;
+
+import javax.xml.datatype.Duration;
 
 import static khouvramany.wannago.MyDatabse.*;
 
@@ -27,44 +32,44 @@ public class RunDB extends WannaGoDB {
         db = super.getDb();
     }
 
-    public void insertRun(Run run){
-        Log.d(TAG,"insertUser -- START");
-        Log.d(TAG,"insertUser -- param run :"+ run.toString());
+    public void insertBasicRun(Run run){
+        Log.d(TAG,"insertBasicUser -- START");
+        Log.d(TAG,"insertBasicUser -- param run :"+ run.toString());
+
+        ContentValues values = new ContentValues();
+        values.put(RUN_START_DATE, String.valueOf(run.getStartDate()));
+        values.put(RUN_DURATION,run.getDuration());
+        values.put(RUN_DISTANCE,run.getDistance());
+        values.put(RUN_ELEVATION,run.getElevation());
+        values.put(USER_ID,run.getRunner());
 
         this.open();
-        ContentValues values = new ContentValues();
-        values.put("start_date", String.valueOf(run.getStartDate()));
-        values.put("duration",run.getDuration());
-        values.put("distance",run.getDistance());
-        values.put("elevation",run.getElevation());
-        values.put("user_id",run.getRunner());
-
-
         db.insert(RUN_TABLE,null,values);
         close();
     }
 
-
-    public void insertRunLocation(Run run, Location loc){
+    public void insertRun(Run run){
         Log.d(TAG,"insertUser -- START");
-        Log.d(TAG,"insertUser -- param Location :"+ run.toString() +"\n " +
-                "latitude : "+ loc.getLatitude()+" \n" +
-                "longitude : "+loc.getLongitude()+" \n" +
-                "altitude : "+loc.getAltitude()+" \n" +
-                "speed : "+loc.getSpeed()+" \n" +
-                "date : "+loc.getTime()+" \n" +
-                "run_id "+run.getRunId()
-        );
+        Log.d(TAG,"insertUser -- param run :"+ run.toString());
+
+        insertBasicRun(run);
+
+        ContentValues values = new ContentValues();
+        Vector<Location> locations = run.getLocations();
+        Iterator<Location> it = locations.iterator();
+        Location curLoc ;
+
+        while (it.hasNext()){
+            curLoc = it.next();
+            values.put(RUN_DETAILS_LATITUDE, curLoc.getLatitude());
+            values.put(RUN_DETAILS_LONGITUDE, curLoc.getLatitude());
+            values.put(RUN_DETAILS_ALTITUDE, curLoc.getLatitude());
+            values.put(RUN_DETAILS_SPEED, curLoc.getLatitude());
+            values.put(RUN_DETAILS_DATE, curLoc.getLatitude());
+            values.put(RUN_ID,run.getRunner());
+        }
 
         this.open();
-        ContentValues values = new ContentValues();
-        values.put("latitude", loc.getLatitude());
-        values.put("longitude",loc.getLongitude());
-        values.put("altitude",loc.getAltitude());
-        values.put("speed",loc.getSpeed());
-        values.put("location_date",loc.getTime());
-        values.put("user_id",run.getRunner());
-
         db.insert(RUN_DETAILS_TABLE,null,values);
         close();
     }
@@ -122,8 +127,5 @@ public class RunDB extends WannaGoDB {
         return locations;
     }
 
-
-    public void insertLocationsbyRun(Run run, Vector<Location> locations){
-
-    }
+    //public Run findRunbyUser(User){}
 }

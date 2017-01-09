@@ -6,17 +6,25 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/postrun"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:context="khouvramany.wannago.LoginActiviy">
 
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        android:name="com.google.android.gms.maps.MapFragment"
+        android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:paddingLeft="40dp"
-        android:paddingRight="40dp">
+        android:paddingRight="40dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <TextView
             android:id="@+id/finish_map"
@@ -29,6 +37,7 @@
 
         <TextView
             android:id="@+id/yourstats_text"
+            android:padding="@dimen/activity_vertical_margin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -43,7 +52,7 @@
 
             <TextView
                 android:id="@+id/time_text"
-                android:layout_width="wrap_content"
+                android:layout_width="108dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:textSize="20sp"
@@ -51,10 +60,11 @@
 
             <TextView
                 android:id="@+id/finish_time"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:textAlignment="center"
+                android:layout_weight="1"
                 android:textSize="20sp"/>
 
         </LinearLayout>
@@ -66,7 +76,7 @@
 
             <TextView
                 android:id="@+id/distance_text"
-                android:layout_width="wrap_content"
+                android:layout_width="108dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:textSize="20sp"
@@ -74,10 +84,11 @@
 
             <TextView
                 android:id="@+id/finish_distance"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:textAlignment="center"
+                android:layout_weight="1"
                 android:textSize="20sp" />
 
         </LinearLayout>
@@ -89,7 +100,7 @@
 
             <TextView
                 android:id="@+id/avg_speed_text"
-                android:layout_width="wrap_content"
+                android:layout_width="108dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:textSize="20sp"
@@ -97,10 +108,11 @@
 
             <TextView
                 android:id="@+id/finish_average_speed"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:textAlignment="center"
+                android:layout_weight="1"
                 android:textSize="20sp" />
 
         </LinearLayout>
@@ -112,7 +124,7 @@
 
             <TextView
                 android:id="@+id/max_speed_text"
-                android:layout_width="wrap_content"
+                android:layout_width="108dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:textSize="20sp"
@@ -120,15 +132,17 @@
 
             <TextView
                 android:id="@+id/finish_max_speed"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:textAlignment="center"
+                android:layout_weight="1"
                 android:textSize="20sp" />
         </LinearLayout>
 
         <TextView
             android:id="@+id/greetings"
+            android:padding="@dimen/activity_vertical_margin"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textSize="25sp"
@@ -137,25 +151,23 @@
 
         <Button
             android:id="@+id/icandobetter_button"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_margin="50dp"
             android:textSize="20sp"
             android:text="@string/i_can_do_better"
             android:onClick="runAgain"/>
 
         <Button
             android:id="@+id/changerunner_button"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
             android:layout_gravity="center_horizontal"
-            android:layout_margin="50dp"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:text="@string/change_runner"
             android:onClick="changeUser"/>
 
     </LinearLayout>
 </RelativeLayout>
-
 </ScrollView>

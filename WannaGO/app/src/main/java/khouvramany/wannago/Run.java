@@ -1,9 +1,11 @@
 package khouvramany.wannago;
 
 import android.location.Location;
+import android.util.FloatProperty;
 import android.util.Log;
 
 import java.util.Date;
+import java.util.Iterator;
 import java.util.Vector;
 
 /**
@@ -29,6 +31,38 @@ public class Run {
         locations = new Vector<>();
 
         Log.v(TAG,"new Run : "+ this.toString());
+    }
+
+    public Run(Vector<Location> locations, double duration, double distance, double elevation, String runner, Date startDate, int runId) {
+        this.locations = locations;
+        this.duration = duration;
+        this.distance = distance;
+        this.elevation = elevation;
+        this.runner = runner;
+        this.startDate = startDate;
+        this.runId = runId;
+    }
+
+    public float getAvgSpeed(){
+        Iterator<Location> it = locations.iterator();
+        Float sumSpeed = null;
+
+        while (it.hasNext()){
+            sumSpeed += it.next().getSpeed();
+        }
+        return sumSpeed/locations.size();
+    }
+
+    public float getMaxSpeed(){
+        Iterator<Location> it = locations.iterator();
+        Float max = 0f;
+        Float curSpeed = 0f;
+
+        while (it.hasNext()){
+            curSpeed = it.next().getSpeed();
+            max = curSpeed > max ? curSpeed : max ;
+        }
+        return max;
     }
 
     public int getRunId() {

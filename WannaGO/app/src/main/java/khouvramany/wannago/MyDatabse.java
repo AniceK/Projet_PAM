@@ -12,29 +12,49 @@ public class MyDatabse extends SQLiteOpenHelper {
     public static final String USER_TABLE = "Users";
     public static final String RUN_TABLE = "Run";
     public static final String RUN_DETAILS_TABLE = "Run_details";
+    public static final String USER_ID = "user_id";
+    public static final String USER_NAME = "user_name";
+    public static final String USER_PASSWORD = "user_pwd";
+    public static final String RUN_ID = "run_id";
+    public static final String RUN_START_DATE = "start_date";
+    public static final String RUN_DURATION = "duration";
+    public static final String RUN_DISTANCE = "distance";
+    public static final String RUN_ELEVATION = "elevation";
+    public static final String RUN_DETAILS_ID = "location_id";
+    public static final String RUN_DETAILS_LATITUDE = "latitude";
+    public static final String RUN_DETAILS_LONGITUDE = "longitude";
+    public static final String RUN_DETAILS_ALTITUDE = "altitude";
+    public static final String RUN_DETAILS_SPEED = "speed";
+    public static final String RUN_DETAILS_DATE = "location_date";
 
 
     private final static String CRE_TAB_USER ="create table "+USER_TABLE+" ("+
-            "user_id INTEGER PRIMARY KEY AUTOINCREMENT, "+
-            "user_name text not null,"+
-            "user_pwd text not null"+
+            USER_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+
+            USER_NAME+" text not null,"+
+            USER_PASSWORD+" text not null"+
             ");"
             ;
 
     private final static String CRE_TAB_RUN ="create table "+RUN_TABLE+" ("+
-            "run_id INTEGER PRIMARY KEY AUTOINCREMENT, "+
-            "start_date text not null,"+
-            "user_id text not null"+
-            "FOREIGN KEY(user_id) REFERENCES "+USER_TABLE+"(user_id)"+
+            RUN_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+
+            RUN_START_DATE+" text not null,"+
+            RUN_DURATION+" integer not null,"+
+            RUN_DISTANCE+" integer not null,"+
+            RUN_ELEVATION+" integer not null,"+
+            USER_ID+" integer not null"+
+            "FOREIGN KEY("+USER_ID+") REFERENCES "+USER_TABLE+"("+USER_ID+")"+
             ");"
             ;
 
     private final static String CRE_TAB_RUN_DETAILS ="create table "+ RUN_DETAILS_TABLE +" ("+
-            "pos_id INTEGER PRIMARY KEY AUTOINCREMENT, "+
-            "pos_coord text not null,"+
-            "pos_date text not null,"+
-            "run_id INTEGER,"+
-            "FOREIGN KEY(run_id) REFERENCES "+RUN_TABLE+"(run_id)"+
+            RUN_DETAILS_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+
+            RUN_DETAILS_LATITUDE+" real not null,"+
+            RUN_DETAILS_LONGITUDE+" real not null,"+
+            RUN_DETAILS_ALTITUDE+" real not null,"+
+            RUN_DETAILS_SPEED+" text not null,"+
+            RUN_DETAILS_DATE+" text not null,"+
+            RUN_ID+" integer not null,"+
+            "FOREIGN KEY("+RUN_ID+") REFERENCES "+RUN_TABLE+"("+RUN_ID+")"+
             ");"
             ;
 

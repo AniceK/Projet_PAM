@@ -74,6 +74,4 @@ public class UserDB extends WannaGoDB {
 
         return user;
     }
-
-
 }

@@ -1,8 +1,10 @@
 package khouvramany.wannago;
 
+import android.location.Location;
 import android.util.Log;
 
 import java.util.Date;
+import java.util.Vector;
 
 /**
  * Created by gautiercouvrat on 07/01/2017.
@@ -10,11 +12,13 @@ import java.util.Date;
 
 public class Run {
     private static final String TAG = "Run";
+    private int runId ;
     private Date startDate;
-    private long duration;
-    private long distance;
-    private long elevation;
+    private double duration;
+    private double distance;
+    private double elevation;
     private String runner;
+    private Vector<Location> locations;
 
     public Run() {
         this.setStartDate(new Date(System.currentTimeMillis()));
@@ -22,22 +26,32 @@ public class Run {
         this.setDuration((long) 0);
         this.setRunner(null);
         this.setElevation((long) 0);
+        locations = new Vector<>();
+
         Log.v(TAG,"new Run : "+ this.toString());
     }
 
-    public Long getDuration() {
+    public int getRunId() {
+        return runId;
+    }
+
+    public void setRunId(int runId) {
+        this.runId = runId;
+    }
+
+    public double getDuration() {
         return duration;
     }
 
-    public void setDuration(Long duration) {
+    public void setDuration(double duration) {
         this.duration = duration;
     }
 
-    public Long getDistance() {
+    public double getDistance() {
         return distance;
     }
 
-    public void setDistance(Long distance) {
+    public void setDistance(double distance) {
         this.distance = distance;
     }
 
@@ -49,11 +63,11 @@ public class Run {
         this.startDate = startDate;
     }
 
-    public long getElevation() {
+    public double getElevation() {
         return elevation;
     }
 
-    public void setElevation(long elevation) {
+    public void setElevation(double elevation) {
         this.elevation = elevation;
     }
 
@@ -63,6 +77,23 @@ public class Run {
 
     public void setRunner(String runner) {
         this.runner = runner;
+    }
+
+    //get the umpteenth Location point
+    public Location getLocation(int i){
+        return locations.get(i);
+    }
+
+    public void addLocation(Location location){
+        locations.addElement(location);
+    }
+
+    public Vector<Location> getLocations() {
+        return locations;
+    }
+
+    public void setLocations(Vector<Location> locations) {
+        this.locations = locations;
     }
 
     @Override

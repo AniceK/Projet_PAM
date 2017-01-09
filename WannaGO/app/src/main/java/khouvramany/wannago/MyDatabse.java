@@ -40,7 +40,7 @@ public class MyDatabse extends SQLiteOpenHelper {
             RUN_START_DATE+" text not null,"+
             RUN_DURATION+" integer not null,"+
             RUN_DISTANCE+" integer not null,"+
-            RUN_ELEVATION+" integer not null,"+
+            RUN_ELEVATION+" integer ,"+
             USER_ID+" integer not null,"+
             "FOREIGN KEY("+USER_ID+") REFERENCES "+USER_TABLE+"("+USER_ID+")"+
             ");"
@@ -50,9 +50,9 @@ public class MyDatabse extends SQLiteOpenHelper {
             RUN_DETAILS_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+
             RUN_DETAILS_LATITUDE+" real not null,"+
             RUN_DETAILS_LONGITUDE+" real not null,"+
-            RUN_DETAILS_ALTITUDE+" real not null,"+
-            RUN_DETAILS_SPEED+" text not null,"+
-            RUN_DETAILS_DATE+" text not null,"+
+            RUN_DETAILS_ALTITUDE+" real ,"+
+            RUN_DETAILS_SPEED+" text ,"+
+            RUN_DETAILS_DATE+" text ,"+
             RUN_ID+" integer not null,"+
             "FOREIGN KEY("+RUN_ID+") REFERENCES "+RUN_TABLE+"("+RUN_ID+")"+
             ");"

@@ -2,7 +2,7 @@
     <string name="app_name">WannaGO</string>
     <string name="prerun_text">Hey %s, \nWannaGO for a run ? \n\nReady... \n\nSet...</string>
     <string name="done">I\'m done</string>
-    <string name="average_speed">Average Speed</string>
+    <string name="average_speed">Avg Speed</string>
     <string name="distance">Distance</string>
     <string name="time">Time</string>
     <string name="your_stats">Your Stats</string>

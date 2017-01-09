@@ -11,13 +11,20 @@ import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
 import android.os.SystemClock;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Chronometer;
 
-public class RunActivity extends AppCompatActivity {
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
+public class RunActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     public static final String TAG = "RunActivity";
 
@@ -46,6 +53,8 @@ public class RunActivity extends AppCompatActivity {
         setContentView(R.layout.activity_run);
 
         chrono = (Chronometer) findViewById(R.id.chronometer);
+        MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
 
         String name = getIntent().getStringExtra("user");
         Log.d(TAG, name);
@@ -108,6 +117,13 @@ public class RunActivity extends AppCompatActivity {
             Log.d(TAG, "onServiceDisconnected");
         }
     };
+
+    @Override
+    public void onMapReady(GoogleMap map) {
+        map.addMarker(new MarkerOptions()
+                .position(new LatLng(0, 0))
+                .title("Marker"));
+    }
 
     //================================
     //       Method for handler

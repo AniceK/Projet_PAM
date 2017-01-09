@@ -1,11 +1,14 @@
 package khouvramany.wannago;
 
 
+import android.Manifest;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -13,26 +16,26 @@ import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
 import android.provider.Settings;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 public class GPSTracker extends Service {
 
     //================================
-    //       Variables for service
-    //================================
-
-    //private final IBinder mBinder = new LocalBinder();
-
-    //================================
     //       Variables for location
     //================================
-
-    public LocationManager locationManager;
 
     private static final int LOCATION_INTERVAL = 1000;
     private static final String TAG = "GPSTracker";
     private static final float LOCATION_DISTANCE = 10;
 
+    public LocationManager locationManager;
+
+    LocationListener[] mLocationListeners = new LocationListener[] {
+            new LocationListener(LocationManager.GPS_PROVIDER),
+            new LocationListener(LocationManager.NETWORK_PROVIDER)
+    };
 
     //================================
     //       Method for handler
@@ -64,12 +67,20 @@ public class GPSTracker extends Service {
 
         try {
             locationManager.requestLocationUpdates(
-                    LocationManager.GPS_PROVIDER, LOCATION_INTERVAL, LOCATION_DISTANCE,
-                    new LocationListener(LocationManager.GPS_PROVIDER));
+                    LocationManager.GPS_PROVIDER, LOCATION_INTERVAL, LOCATION_DISTANCE, mLocationListeners[0]);
         } catch (SecurityException ex) {
             Log.e(TAG, "fail to request location update, ignore", ex);
         } catch (IllegalArgumentException ex) {
             Log.e(TAG, "gps provider does not exist " + ex.getMessage());
+        }
+
+        try {
+            locationManager.requestLocationUpdates(
+                    LocationManager.NETWORK_PROVIDER, LOCATION_INTERVAL, LOCATION_DISTANCE, mLocationListeners[1]);
+        } catch (SecurityException ex) {
+            Log.e(TAG, "fail to request location update, ignore", ex);
+        } catch (IllegalArgumentException ex) {
+            Log.e(TAG, "network provider does not exist " + ex.getMessage());
         }
 
     }
@@ -106,15 +117,14 @@ public class GPSTracker extends Service {
     //================================
 
     private class LocationListener implements android.location.LocationListener{
-        Location mLastLocation;
+
         LocationListener(String provider) {
             Log.d(TAG, "LocationListener " + provider);
-            mLastLocation = new Location(provider);
         }
+
         @Override
         public void onLocationChanged(Location location) {
             Log.d(TAG, "onLocationChanged: " + location);
-            mLastLocation.set(location);
 
             // Set location in msg
             Message msg = new Message();
@@ -137,8 +147,11 @@ public class GPSTracker extends Service {
         @Override
         public void onProviderDisabled(String provider) {
             Log.d(TAG, "onProviderDisabled: " + provider);
-            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-            startActivity(intent);
+            if(!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) &&
+                    !locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)){
+                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                startActivity(intent);
+            }
         }
 
         @Override
@@ -146,11 +159,6 @@ public class GPSTracker extends Service {
             Log.d(TAG, "onProviderEnabled: " + provider);
         }
     }
-
-    LocationListener[] mLocationListeners = new LocationListener[] {
-            new LocationListener(LocationManager.GPS_PROVIDER),
-            new LocationListener(LocationManager.NETWORK_PROVIDER)
-    };
 
     private void initializeLocationManager() {
         Log.d(TAG, "initializeLocationManager");

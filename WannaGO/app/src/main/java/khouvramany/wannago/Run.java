@@ -158,8 +158,7 @@ public class Run implements Parcelable {
         Log.d(TAG, "addLocation: " + location);
 
         if (locations.size() == 0 ) setStartDate( location.getTime());
-        locations.add(location);
-        Log.v(TAG, String.valueOf(locations.add(location)));
+        locations.addElement(location);
     }
 
     public Vector<Location> getLocations() {

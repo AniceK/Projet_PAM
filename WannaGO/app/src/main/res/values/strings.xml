@@ -10,4 +10,7 @@
     <string name="good_job">Good job %s !</string>
     <string name="i_can_do_better">I can do better !</string>
     <string name="change_runner">Change Runner</string>
+    <string name="id">ID</string>
+    <string name="password">Password</string>
+    <string name="let_s_run">Let\'s Run !</string>
 </resources>

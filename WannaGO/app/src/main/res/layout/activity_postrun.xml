@@ -20,9 +20,9 @@
         <fragment
             android:name="com.google.android.gms.maps.MapFragment"
             android:id="@+id/map"
-            map:mapType="normal"
+            map:mapType="terrain"
             android:layout_width="match_parent"
-            android:layout_height="200sp"
+            android:layout_height="240sp"
             tools:layout="@android:layout/simple_spinner_item" />
 
         <LinearLayout

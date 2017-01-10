@@ -20,7 +20,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:textAlignment="center"
-        android:hint="ID" />
+        android:inputType="textPersonName"
+        android:hint="@string/id" />
 
     <EditText
         android:id="@+id/passworduser"
@@ -29,7 +30,7 @@
         android:layout_gravity="center_horizontal"
         android:textAlignment="center"
         android:inputType="textPassword"
-        android:hint="Password" />
+        android:hint="@string/password" />
 
     <Button
         android:id="@+id/letsrun_button"
@@ -37,7 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:onClick="connect"
-        android:text="Let's Run !"/>
+        android:text="@string/let_s_run"/>
 
     </LinearLayout>
 </RelativeLayout>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:map="http://schemas.android.com/apk/res-auto">
@@ -11,165 +12,161 @@
     android:layout_height="wrap_content"
     tools:context="khouvramany.wannago.LoginActiviy">
 
-    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-        android:name="com.google.android.gms.maps.MapFragment"
-        android:id="@+id/map"
-        map:mapType="normal"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:paddingLeft="40dp"
-        android:paddingRight="40dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/finish_map"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:textAlignment="center"
-            android:textSize="20sp"
-            android:text="Here should be the map" />
-
-        <TextView
-            android:id="@+id/yourstats_text"
-            android:padding="@dimen/activity_vertical_margin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:textAlignment="center"
-            android:textSize="30sp"
-            android:text="@string/your_stats" />
+        <fragment
+            android:name="com.google.android.gms.maps.MapFragment"
+            android:id="@+id/map"
+            map:mapType="normal"
+            android:layout_width="match_parent"
+            android:layout_height="200sp"
+            tools:layout="@android:layout/simple_spinner_item" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp">
 
             <TextView
-                android:id="@+id/time_text"
-                android:layout_width="108dp"
+                android:id="@+id/yourstats_text"
+                android:padding="@dimen/activity_vertical_margin"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:textSize="20sp"
-                android:text="@string/time" />
+                android:textAlignment="center"
+                android:textSize="30sp"
+                android:text="@string/your_stats" />
 
-            <TextView
-                android:id="@+id/finish_time"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:textAlignment="center"
-                android:layout_weight="1"
-                android:textSize="20sp"/>
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/time_text"
+                    android:layout_width="108dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="20sp"
+                    android:text="@string/time" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/finish_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:textAlignment="center"
+                    android:layout_weight="1"
+                    android:textSize="20sp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/distance_text"
+                    android:layout_width="108dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="20sp"
+                    android:text="@string/distance" />
+
+                <TextView
+                    android:id="@+id/finish_distance"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:textAlignment="center"
+                    android:layout_weight="1"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/avg_speed_text"
+                    android:layout_width="108dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="20sp"
+                    android:text="@string/average_speed" />
+
+                <TextView
+                    android:id="@+id/finish_average_speed"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:textAlignment="center"
+                    android:layout_weight="1"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/max_speed_text"
+                    android:layout_width="108dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="20sp"
+                    android:text="@string/max_speed" />
+
+                <TextView
+                    android:id="@+id/finish_max_speed"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:textAlignment="center"
+                    android:layout_weight="1"
+                    android:textSize="20sp" />
+            </LinearLayout>
 
             <TextView
-                android:id="@+id/distance_text"
-                android:layout_width="108dp"
+                android:id="@+id/greetings"
+                android:padding="@dimen/activity_vertical_margin"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="25sp"
+                android:textAlignment="center"
+                android:text="@string/good_job"/>
+
+            <Button
+                android:id="@+id/icandobetter_button"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:textSize="20sp"
-                android:text="@string/distance" />
+                android:text="@string/i_can_do_better"
+                android:onClick="runAgain"/>
 
-            <TextView
-                android:id="@+id/finish_distance"
-                android:layout_width="0dp"
+            <Button
+                android:id="@+id/changerunner_button"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:layout_gravity="center_horizontal"
-                android:textAlignment="center"
-                android:layout_weight="1"
-                android:textSize="20sp" />
+                android:textSize="16sp"
+                android:text="@string/change_runner"
+                android:onClick="changeUser"/>
 
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/avg_speed_text"
-                android:layout_width="108dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:textSize="20sp"
-                android:text="@string/average_speed" />
-
-            <TextView
-                android:id="@+id/finish_average_speed"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:textAlignment="center"
-                android:layout_weight="1"
-                android:textSize="20sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/max_speed_text"
-                android:layout_width="108dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:textSize="20sp"
-                android:text="@string/max_speed" />
-
-            <TextView
-                android:id="@+id/finish_max_speed"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:textAlignment="center"
-                android:layout_weight="1"
-                android:textSize="20sp" />
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/greetings"
-            android:padding="@dimen/activity_vertical_margin"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textSize="25sp"
-            android:textAlignment="center"
-            android:text="@string/good_job"/>
-
-        <Button
-            android:id="@+id/icandobetter_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:textSize="20sp"
-            android:text="@string/i_can_do_better"
-            android:onClick="runAgain"/>
-
-        <Button
-            android:id="@+id/changerunner_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:layout_gravity="center_horizontal"
-            android:textSize="16sp"
-            android:text="@string/change_runner"
-            android:onClick="changeUser"/>
-
     </LinearLayout>
+
 </RelativeLayout>
 </ScrollView>

@@ -1,8 +1,12 @@
 package khouvramany.wannago;
 
 import android.location.Location;
+import android.location.LocationManager;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Vector;
@@ -11,7 +15,7 @@ import java.util.Vector;
  * Created by gautiercouvrat on 07/01/2017.
  */
 
-public class Run {
+public class Run implements Parcelable {
     private static final String TAG = "Run";
     private int runId ;
     private long startDate;
@@ -27,7 +31,7 @@ public class Run {
         this.setDuration(0);
         this.setRunner(null);
         this.setElevation(0);
-        locations = new Vector<>();
+        locations = new Vector<Location>();
 
         Log.v(TAG,"new Run : "+ this.toString());
     }
@@ -42,20 +46,53 @@ public class Run {
         this.runId = runId;
     }
 
+    protected Run(Parcel in) {
+        runId = in.readInt();
+        startDate = in.readLong();
+        duration = in.readDouble();
+        distance = in.readDouble();
+        elevation = in.readDouble();
+        runner = in.readString();
+        locations = new Vector<>();
+        in.readList(locations,null);
+        locations = new Vector<>();
+    }
+
+    public static final Creator<Run> CREATOR = new Creator<Run>() {
+        @Override
+        public Run createFromParcel(Parcel in) {
+            return new Run(in);
+        }
+
+        @Override
+        public Run[] newArray(int size) {
+            return new Run[size];
+        }
+    };
+
     public float getAvgSpeed(){
+        if (locations.size() == 0 ) return 0f ;
         Iterator<Location> it = locations.iterator();
-        Float sumSpeed = null;
+        Float sumSpeed = 0f;
+        Float avgSpeed = 0f;
 
         while (it.hasNext()){
             sumSpeed += it.next().getSpeed();
         }
-        return sumSpeed/locations.size();
+        try {
+            avgSpeed = sumSpeed/locations.size();
+        } catch (Exception e){
+            e.getMessage();
+            e.printStackTrace();
+        }
+        return avgSpeed;
     }
 
     public float getMaxSpeed(){
+        if (locations.size() == 0 ) return 0f ;
         Iterator<Location> it = locations.iterator();
         Float max = 0f;
-        Float curSpeed = 0f;
+        Float curSpeed;
 
         while (it.hasNext()){
             curSpeed = it.next().getSpeed();
@@ -128,6 +165,10 @@ public class Run {
         return locations;
     }
 
+    public Location getLastLocation(){
+        return locations.lastElement();
+    }
+
     public void setLocations(Vector<Location> locations) {
         this.locations = locations;
     }
@@ -141,5 +182,21 @@ public class Run {
                 ", runner=" + runner +
                 ", elevation=" + elevation +
                 '}';
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(runId);
+        parcel.writeLong(startDate);
+        parcel.writeDouble(duration);
+        parcel.writeDouble(distance);
+        parcel.writeDouble(elevation);
+        parcel.writeString(runner);
+        parcel.writeList(locations);
     }
 }

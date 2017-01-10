@@ -27,6 +27,9 @@
             android:name=".GPSTracker"
             android:enabled="true"
             android:exported="true"></service>
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDXBZrDOu5mqX0hnZqIaKAyINQtmVFfFqc"/>
     </application>
 
 </manifest>

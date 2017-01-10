@@ -47,12 +47,8 @@ public class RunActivity extends AppCompatActivity {
 
         chrono = (Chronometer) findViewById(R.id.chronometer);
 
-        String name = getIntent().getStringExtra("user");
-        Log.d(TAG, name);
-
-        // à compléter avec paramètres complets
         run = new Run();
-        run.setRunner(name);
+        run.setRunner(getIntent().getStringExtra("user"));
 
         //Start chronometer
         chrono.start();
@@ -127,6 +123,7 @@ public class RunActivity extends AppCompatActivity {
             Log.d(TAG, "new location received: " + location);
             // insert location in Run
             run.addLocation(location);
+            //run.setDuration(run.getDuration() + chrono.get);
         }
     }
 
@@ -170,8 +167,8 @@ public class RunActivity extends AppCompatActivity {
         // Call post RunActivity activity
         Intent postrun = new Intent(this, PostRunActivity.class);
         postrun.putExtra("user",getIntent().getStringExtra("user"));
-        postrun.putExtra("chrono", chrono.getBase());
-        postrun.putExtra("run", run.getClass());
+        postrun.putExtra("run", run);
+
         startActivity(postrun);
     }
 }

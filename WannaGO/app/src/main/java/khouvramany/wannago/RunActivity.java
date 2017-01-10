@@ -166,7 +166,7 @@ public class RunActivity extends AppCompatActivity {
 
         // Call post RunActivity activity
         Intent postrun = new Intent(this, PostRunActivity.class);
-        postrun.putExtra("user",getIntent().getStringExtra("user"));
+        //postrun.putExtra("user",getIntent().getStringExtra("user"));
         postrun.putExtra("run", run);
 
         startActivity(postrun);

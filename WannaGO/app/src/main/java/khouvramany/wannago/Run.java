@@ -53,9 +53,9 @@ public class Run implements Parcelable {
         distance = in.readDouble();
         elevation = in.readDouble();
         runner = in.readString();
+        locations = new Vector<Location>();
         locations = new Vector<>();
         in.readList(locations,null);
-        locations = new Vector<>();
     }
 
     public static final Creator<Run> CREATOR = new Creator<Run>() {
@@ -158,7 +158,8 @@ public class Run implements Parcelable {
         Log.d(TAG, "addLocation: " + location);
 
         if (locations.size() == 0 ) setStartDate( location.getTime());
-        locations.addElement(location);
+        locations.add(location);
+        Log.v(TAG, String.valueOf(locations.add(location)));
     }
 
     public Vector<Location> getLocations() {

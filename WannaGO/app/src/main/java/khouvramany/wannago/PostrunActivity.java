@@ -80,11 +80,11 @@ public class PostRunActivity extends FragmentActivity implements OnMapReadyCallb
     public void onMapReady(GoogleMap googleMap) {
         Log.v(TAG, "onMapReady");
         LatLng pos;
-        Iterator<Location> it = run.getLocations().iterator();
+        Iterator it = run.getLocations().iterator();
         PolylineOptions polylineOpt = new PolylineOptions();
 
         while (it.hasNext()) {
-            Location loc = it.next();
+            Location loc = (Location)it.next();
             pos = new LatLng(loc.getLatitude(), loc.getLongitude());
             Log.v(TAG, "onMapReady -- while : add " + pos.toString());
 

@@ -33,8 +33,8 @@ public class RunDB extends WannaGoDB {
     }
 
     public void insertBasicRun(Run run){
-        Log.d(TAG,"insertBasicUser -- START");
-        Log.d(TAG,"insertBasicUser -- param run :"+ run.toString());
+        Log.d(TAG,"insertBasicRun -- START");
+        Log.d(TAG,"insertBasicRun -- param run :"+ run.toString());
 
         ContentValues values = new ContentValues();
         values.put(RUN_START_DATE, String.valueOf(run.getStartDate()));
@@ -49,8 +49,8 @@ public class RunDB extends WannaGoDB {
     }
 
     public void insertRun(Run run){
-        Log.d(TAG,"insertUser -- START");
-        Log.d(TAG,"insertUser -- param run :"+ run.toString());
+        Log.d(TAG,"insertRun -- START");
+        Log.d(TAG,"insertRun -- param run :"+ run.toString());
 
         insertBasicRun(run);
 

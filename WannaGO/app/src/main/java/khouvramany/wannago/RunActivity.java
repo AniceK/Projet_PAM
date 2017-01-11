@@ -4,6 +4,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.icu.text.DateFormat;
 import android.location.Location;
 import android.os.Handler;
 import android.os.IBinder;
@@ -11,6 +12,7 @@ import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
 import android.os.SystemClock;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -34,7 +36,7 @@ public class RunActivity extends AppCompatActivity {
     // link with service status
     boolean mBound = false;
     // Contains service address
-    Messenger mService = null;
+    //Messenger mService = null;
 
     //================================
     // Method onCreate : create instances
@@ -47,11 +49,10 @@ public class RunActivity extends AppCompatActivity {
 
         chrono = (Chronometer) findViewById(R.id.chronometer);
 
+        //create a new run
         run = new Run();
         run.setRunner(getIntent().getStringExtra("user"));
 
-        //Start chronometer
-        chrono.start();
     }
 
     //================================
@@ -61,12 +62,17 @@ public class RunActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
         Log.d(TAG, "onStart");
+
+        run.setStartDate(System.currentTimeMillis());
+        //Start chronometer
+        chrono.setBase(SystemClock.elapsedRealtime());
+        chrono.start();
 
         // Bind to GPSTracker
         Intent intent = new Intent(this, GPSTracker.class);
         bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
+
     }
 
     //================================
@@ -74,6 +80,8 @@ public class RunActivity extends AppCompatActivity {
     //================================
 
     private ServiceConnection mConnection = new ServiceConnection() {
+        Messenger mService = null;
+
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
 
@@ -123,7 +131,6 @@ public class RunActivity extends AppCompatActivity {
             Log.d(TAG, "new location received: " + location);
             // insert location in Run
             run.addLocation(location);
-            //run.setDuration(run.getDuration() + chrono.get);
         }
     }
 
@@ -150,19 +157,16 @@ public class RunActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-        chrono.setBase(SystemClock.elapsedRealtime());
-        chrono.start();
-        super.onPostResume();
+        //super.onPostResume();
+        onStart();
     }
-
 
     //================================
     // Method stopRun : go to postRun
     //================================
-
-    // Button "I'm done" clicked
     public void stopRun(View view){
         chrono.stop();
+        run.setDuration(SystemClock.elapsedRealtime() - chrono.getBase());
 
         // Call post RunActivity activity
         Intent postrun = new Intent(this, PostRunActivity.class);

@@ -1,13 +1,10 @@
 package khouvramany.wannago;
 
 import android.location.Location;
-import android.location.LocationManager;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
 
-import java.io.Serializable;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.Vector;
 
@@ -20,14 +17,13 @@ public class Run implements Parcelable {
     private int runId ;
     private long startDate;
     private double duration;
-    private double distance;
+    private int distance;
     private double elevation;
     private String runner;
     private Vector<Location> locations;
 
     public Run() {
         this.setStartDate(0);
-        this.setDistance(0);
         this.setDuration(0);
         this.setRunner(null);
         this.setElevation(0);
@@ -36,7 +32,7 @@ public class Run implements Parcelable {
         Log.v(TAG,"new Run : "+ this.toString());
     }
 
-    public Run(Vector<Location> locations, double duration, double distance, double elevation, String runner, long startDate, int runId) {
+    public Run(Vector<Location> locations, double duration, int distance, double elevation, String runner, long startDate, int runId) {
         this.locations = locations;
         this.duration = duration;
         this.distance = distance;
@@ -50,7 +46,7 @@ public class Run implements Parcelable {
         runId = in.readInt();
         startDate = in.readLong();
         duration = in.readDouble();
-        distance = in.readDouble();
+        distance = in.readInt();
         elevation = in.readDouble();
         runner = in.readString();
         locations = new Vector<Location>();
@@ -71,33 +67,37 @@ public class Run implements Parcelable {
     };
 
     public float getAvgSpeed(){
-        if (locations.size() == 0 ) return 0f ;
+        Float avgSpeed = 0f;
+
+        if (locations.size() == 0 ) return avgSpeed ;
+
         Iterator<Location> it = locations.iterator();
         Float sumSpeed = 0f;
-        Float avgSpeed = 0f;
 
         while (it.hasNext()){
             sumSpeed += it.next().getSpeed();
         }
-        try {
-            avgSpeed = sumSpeed/locations.size();
-        } catch (Exception e){
-            e.getMessage();
-            e.printStackTrace();
-        }
-        return avgSpeed;
+
+        avgSpeed = sumSpeed/locations.size();
+
+        Log.v(TAG,"getAvgSpeed :"+avgSpeed);
+        return Math.round(avgSpeed);
     }
 
     public float getMaxSpeed(){
-        if (locations.size() == 0 ) return 0f ;
-        Iterator<Location> it = locations.iterator();
         Float max = 0f;
+
+        if (locations.size() == 0 ) return max ;
+        Iterator<Location> it = locations.iterator();
         Float curSpeed;
 
         while (it.hasNext()){
             curSpeed = it.next().getSpeed();
+            Log.d(TAG,"get max speed : "+curSpeed);
             max = curSpeed > max ? curSpeed : max ;
         }
+
+        Log.v(TAG,"getAvgSpeed :"+max);
         return max;
     }
 
@@ -117,12 +117,21 @@ public class Run implements Parcelable {
         this.duration = duration;
     }
 
-    public double getDistance() {
-        return distance;
-    }
+    public int getDistance() {
+        int distance = 0;
+        if (locations.size() < 2 ) return distance ;
+        Iterator<Location> it = locations.iterator();
+        Location oldLoc ;
+        Location newloc ;
 
-    public void setDistance(double distance) {
-        this.distance = distance;
+        while (it.hasNext()){
+            oldLoc = it.next();
+            newloc = it.next();
+            distance+=oldLoc.distanceTo(newloc);
+        }
+
+        Log.v(TAG,"getDistance :"+distance);
+        return Math.round(distance);
     }
 
     public long getStartDate() {
@@ -133,7 +142,24 @@ public class Run implements Parcelable {
         this.startDate = startDate;
     }
 
-    public double getElevation() {
+    public int getElevation() {
+        int elevation = 0;
+
+        if (locations.size() < 2 ) return elevation ;
+
+        Iterator<Location> it = locations.iterator();
+        Location oldLoc;
+        Location newloc;
+
+        while (it.hasNext()){
+            oldLoc = it.next();
+            newloc = it.next();
+            Log.v(TAG,"getElevation : elevation "+elevation +"+"+Math.abs(oldLoc.getAltitude() - newloc.getAltitude()));
+
+            elevation+= Math.abs(oldLoc.getAltitude() - newloc.getAltitude()) ;
+        }
+
+        Log.v(TAG,"getElevation :"+elevation);
         return elevation;
     }
 
@@ -157,7 +183,6 @@ public class Run implements Parcelable {
     public void addLocation(Location location){
         Log.d(TAG, "addLocation: " + location);
 
-        if (locations.size() == 0 ) setStartDate( location.getTime());
         locations.addElement(location);
     }
 
@@ -194,7 +219,7 @@ public class Run implements Parcelable {
         parcel.writeInt(runId);
         parcel.writeLong(startDate);
         parcel.writeDouble(duration);
-        parcel.writeDouble(distance);
+        parcel.writeInt(distance);
         parcel.writeDouble(elevation);
         parcel.writeString(runner);
         parcel.writeList(locations);

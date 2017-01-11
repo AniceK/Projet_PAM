@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">WannaGO</string>
-    <string name="prerun_text">Hey %s, \nWannaGO for a run ? \n\nReady... \n\nSet...</string>
+    <string name="prerun_text">Hey %s, \nWannaGO for a run ? \n\nReady… \n\nSet...</string>
     <string name="done">I\'m done</string>
     <string name="average_speed">Avg Speed</string>
     <string name="distance">Distance</string>
@@ -13,4 +13,9 @@
     <string name="id">ID</string>
     <string name="password">Password</string>
     <string name="let_s_run">Let\'s Run !</string>
+    <string name="starting_location">Start</string>
+    <string name="ending_location">End</string>
+    <string name="distance_made">%d m</string>
+    <string name="speed_value">%1$.2f Km/h</string>
+    <string name="elevation">Elevation</string>
 </resources>

@@ -133,7 +133,7 @@ public class GPSTracker extends Service {
             // Send msg to activity
             try {
                 messageActivity.send(msg);
-            }catch (RemoteException e){
+            }catch (Exception e){
                 e.printStackTrace();
             }
 

@@ -38,8 +38,8 @@ public class MyDatabse extends SQLiteOpenHelper {
     private final static String CRE_TAB_RUN ="create table "+RUN_TABLE+" ("+
             RUN_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+
             RUN_START_DATE+" text not null,"+
-            RUN_DURATION+" integer not null,"+
-            RUN_DISTANCE+" integer not null,"+
+            RUN_DURATION+" integer ,"+
+            RUN_DISTANCE+" integer ,"+
             RUN_ELEVATION+" integer ,"+
             USER_ID+" integer not null,"+
             "FOREIGN KEY("+USER_ID+") REFERENCES "+USER_TABLE+"("+USER_ID+")"+

@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:textAlignment="center"
-        android:inputType="textPersonName"
+        android:inputType=""
         android:hint="@string/id" />
 
     <EditText

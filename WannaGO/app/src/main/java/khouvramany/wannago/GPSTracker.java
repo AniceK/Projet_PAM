@@ -150,6 +150,7 @@ public class GPSTracker extends Service {
             if(!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) &&
                     !locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)){
                 Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             }
         }

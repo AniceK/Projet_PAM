@@ -120,13 +120,12 @@ public class Run implements Parcelable {
     public int getDistance() {
         int distance = 0;
         if (locations.size() < 2 ) return distance ;
+
         Iterator<Location> it = locations.iterator();
-        Location oldLoc ;
-        Location newloc ;
 
         while (it.hasNext()){
-            oldLoc = it.next();
-            newloc = it.next();
+            Location oldLoc = it.next();
+            Location newloc = it.next();
             distance+=oldLoc.distanceTo(newloc);
         }
 

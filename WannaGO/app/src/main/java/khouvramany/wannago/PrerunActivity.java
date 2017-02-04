@@ -9,10 +9,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class PreRunActivity extends AppCompatActivity {
-
-    public String user;
 
     private static final String[] PERMISSIONS={
             Manifest.permission.ACCESS_FINE_LOCATION
@@ -30,18 +29,23 @@ public class PreRunActivity extends AppCompatActivity {
 
         // Ask permission to access location of device
         if (!canAccessLocation()){
-            ActivityCompat.requestPermissions(this, PERMISSIONS, 123);
+            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
         }
     }
 
     // On Click "Go" button
     public void startRun(View view){
 
-        //call RunActivity service
-        Intent run = new Intent(this, RunActivity.class);
-        run.putExtra("user", getIntent().getStringExtra("user"));
-        run.putExtra("caller", this.getClass().getName());
-        startActivity(run);
+        if (!canAccessLocation()) {
+            Toast.makeText(this,"You must enable localisation before running.", Toast.LENGTH_LONG);
+        }
+        else {
+            //call RunActivity service
+            Intent run = new Intent(this, RunActivity.class);
+            run.putExtra("user", getIntent().getStringExtra("user"));
+            run.putExtra("caller", this.getClass().getName());
+            startActivity(run);
+        }
     }
 
     //================================
@@ -53,11 +57,6 @@ public class PreRunActivity extends AppCompatActivity {
     }
 
     private boolean hasPermission(String perm) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            return(PackageManager.PERMISSION_GRANTED==checkSelfPermission(perm));
-        }else{
-            return(PackageManager.PERMISSION_GRANTED==checkSelfPermission(perm));
-        }
+        return (PackageManager.PERMISSION_GRANTED == this.checkCallingOrSelfPermission(perm)) ;
     }
-
 }
